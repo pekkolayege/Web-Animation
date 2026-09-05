@@ -23,7 +23,7 @@ Bu repo, temel web teknolojileri (**HTML**, **CSS**, **JavaScript**) kullanılar
 | 1 | [Proje Adı](./proje-klasoru) 
 
  
-> Yeni proje ekledikçe bu tabloyu güncelleyebilirsin.
+
  
 ---
  
