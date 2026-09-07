@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+    --bg-main: #020502;
+    --term-bg: rgba(2, 10, 2, 0.85);
+    --term-border: #004400;
+    --accent: #00ff41;
+    --accent-glow: rgba(0, 255, 65, 0.4);
+    --text-muted: #008822;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Share Tech Mono', monospace;
+    background: var(--bg-main);
+    color: var(--accent);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* CRT Scanline Overlay */
+body::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 999;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+/* Matrix Background */
+canvas#matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Terminal Window */
+.terminal-window {
+    position: relative;
+    width: 650px;
+    background: var(--term-bg);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1), inset 0 0 20px rgba(0, 255, 65, 0.05);
+    border-radius: 4px;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+.terminal-header {
+    background: var(--accent);
+    color: #000;
+    padding: 6px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.terminal-controls span {
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.terminal-body {
+    padding: 50px;
+    position: relative;
+}
+
+/* Typography */
+.terminal-text {
+    text-shadow: 0 0 5px var(--accent-glow);
+    letter-spacing: 1px;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    min-height: 1.5rem;
+    /* Prevents layout shift during glitch typing */
+}
+
+/* Terminal Inputs */
+.terminal-input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px dashed var(--term-border);
+    padding-bottom: 8px;
+    transition: all 0.2s;
+}
+
+.terminal-input-group.focused {
+    border-bottom: 1px solid var(--accent);
+}
+
+.terminal-prompt {
+    margin-right: 15px;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--accent);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    flex: 1;
+    text-shadow: 0 0 5px var(--accent-glow);
+}
+
+.terminal-input::placeholder {
+    color: #003300;
+}
+
+.blinking-cursor {
+    display: inline-block;
+    width: 12px;
+    height: 1.2rem;
+    background: var(--accent);
+    margin-left: 5px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Buttons */
+.terminal-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    padding: 12px 0;
+    width: 100%;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 2px;
+}
+
+.terminal-btn:hover {
+    background: var(--accent);
+    color: #000;
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.terminal-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.terminal-link {
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: text-shadow 0.2s;
+    margin-left: 1rem;
+}
+
+.terminal-link:hover {
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Transitions & Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.25s ease-in forwards;
+}
+
+.slide-out-right {
+    animation: slideOutRight 0.25s ease-in forwards;
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeft {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+}
+
+@keyframes slideOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+/* Custom Terminal Toast */
+.terminal-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #000;
+    border: 1px solid var(--accent);
+    padding: 15px 25px;
+    color: var(--accent);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    animation: toastIn 0.3s ease forwards;
+}
+
+@keyframes toastIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Creator Watermark */
+.watermark {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    color: var(--text-muted);
+    z-index: 1000;
+    letter-spacing: 1px;
+}
+
+.watermark a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.watermark a:hover {
+    text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+    color: #fff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .terminal-window {
+        width: 95%;
+    }
+
+    .terminal-body {
+        padding: 30px 20px;
+    }
+
+    .watermark {
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.85rem;
+        width: max-content;
+    }
+}

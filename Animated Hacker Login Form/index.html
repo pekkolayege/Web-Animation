@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Hacker login Form | Officially by Ege App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <canvas id="matrix-bg"></canvas>
+
+
+    <div class="terminal-window">
+   
+        <div class="terminal-header">
+            <span>root@mainframe: ~/auth_module</span>
+            <div class="terminal-controls">
+                <span>_</span><span>[]</span><span>X</span>
+            </div>
+        </div>
+
+        <div class="terminal-body">
+
+
+            <div id="login-section" class="slide-in-right">
+                <div class="terminal-text" id="login-title"></div>
+
+                <form id="login-form">
+                    <div class="terminal-input-group">
+                        <span class="terminal-prompt">usr@mail:~$</span>
+                        <input type="email" class="terminal-input" placeholder="enter_email" required autocomplete="off"
+                            spellcheck="false">
+                    </div>
+                    <div class="terminal-input-group">
+                        <span class="terminal-prompt">usr@pass:~$</span>
+                        <input type="password" class="terminal-input" placeholder="enter_password" required
+                            autocomplete="off" spellcheck="false">
+                    </div>
+                    <button type="submit" class="terminal-btn">[ EXECUTE_LOGIN ]</button>
+                </form>
+
+                <div style="margin-top: 2rem; font-size: 0.875rem;">
+                    <span style="color: var(--text-muted);">No clearance?</span>
+                    <button id="to-signup" class="terminal-link">INITIATE_SIGNUP</button>
+                </div>
+            </div>
+
+   
+            <div id="signup-section" class="hidden">
+                <div class="terminal-text" id="signup-title"></div>
+
+                <form id="signup-form">
+                    <div class="terminal-input-group">
+                        <span class="terminal-prompt">sys@alias:~$</span>
+                        <input type="text" class="terminal-input" placeholder="enter_alias" required autocomplete="off"
+                            spellcheck="false">
+                    </div>
+                    <div class="terminal-input-group">
+                        <span class="terminal-prompt">sys@mail:~$</span>
+                        <input type="email" class="terminal-input" placeholder="enter_email" required autocomplete="off"
+                            spellcheck="false">
+                    </div>
+                    <div class="terminal-input-group">
+                        <span class="terminal-prompt">sys@pass:~$</span>
+                        <input type="password" class="terminal-input" placeholder="enter_password" required
+                            autocomplete="off" spellcheck="false">
+                    </div>
+                    <button type="submit" class="terminal-btn">[ EXECUTE_SIGNUP ]</button>
+                </form>
+
+                <div style="margin-top: 2rem; font-size: 0.875rem;">
+                    <span style="color: var(--text-muted);">Have clearance?</span>
+                    <button id="to-login" class="terminal-link">EXECUTE_LOGIN</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toast" class="terminal-toast hidden"></div>
+
+
+    <div class="watermark">
+        <span>sys.creator >></span>
+        <a href="https://instagram.com/ege.app" target="_blank" rel="noopener noreferrer">@ege.app</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
