@@ -16,17 +16,6 @@ Bu repo, temel web teknolojileri (**HTML**, **CSS**, **JavaScript**) kullanılar
  
 ---
  
-## 📁 Proje Listesi
- 
-| # | Proje Adı | 
-| 1 | [Animated Hacker Login Form](./animated-hacker-login-form) |
-| 1 | [Proje Adı](./proje-klasoru) 
-
- 
-
- 
----
- 
 ## 🛠️ Kullanılan Teknolojiler
  
 - **HTML5** – Sayfa yapısı ve semantik içerik
